@@ -14,6 +14,8 @@
           <font-awesome-icon icon="times" />
         </div>
       </header>
+
+      <trip-list :trips="trips" />
     </aside>
 
     <main class="l-map">
@@ -23,13 +25,29 @@
 </template>
 
 <script>
+import axios from 'axios'
+import tripList from './components/tripList'
 
 export default {
   name: 'app',
+  components: {
+    tripList
+  },
   data: () => {
     return {
-      showSidebar: false
+      showSidebar: false,
+      trips: []
     }
+  },
+  created () {
+    axios
+      .get('https://europe-west1-metropolis-fe-test.cloudfunctions.net/api/trips')
+      .then(response => {
+        this.trips = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   methods: {
     toggleSidebar: function () {
