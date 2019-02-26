@@ -19,7 +19,7 @@
     </aside>
 
     <main class="l-map">
-
+      <map-view />
     </main>
   </div>
 </template>
@@ -27,11 +27,13 @@
 <script>
 import axios from 'axios'
 import tripList from './components/tripList'
+import mapView from './components/mapView'
 
 export default {
   name: 'app',
   components: {
-    tripList
+    tripList,
+    mapView
   },
   data: () => {
     return {
