@@ -68,6 +68,7 @@ html {
 }
 body {
   margin: 0;
+  font-family: sans-serif;
 }
 
 .l-main-container {
@@ -79,6 +80,7 @@ body {
   }
 }
 .l-sidebar {
+  z-index: 20;
   position: absolute;
   top: 0;
   left: 0;
@@ -94,6 +96,7 @@ body {
   @media all and (min-width: 768px) {
     position: relative;
     transform: translateX(0);
+    overflow-y: scroll;
     box-shadow: none;
   }
   &__header {
@@ -101,7 +104,6 @@ body {
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
     padding: 15px;
     border-bottom: 1px solid #ccc;
     color: #333;
@@ -134,6 +136,7 @@ body {
 }
 
 .a-sidebar-toggle {
+  z-index: 10;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
