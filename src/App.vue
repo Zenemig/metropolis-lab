@@ -15,11 +15,11 @@
         </div>
       </header>
 
-      <trip-list :trips="trips" />
+      <trip-list :trips="trips" @select-route="showRoute" />
     </aside>
 
     <main class="l-map">
-      <map-view />
+      <map-view :trip="selectedRoute" />
     </main>
   </div>
 </template>
@@ -38,13 +38,18 @@ export default {
   data: () => {
     return {
       showSidebar: false,
-      trips: []
+      trips: [],
+      selectedRoute: {}
     }
   },
   created () {
     axios
       .get('https://europe-west1-metropolis-fe-test.cloudfunctions.net/api/trips')
       .then(response => {
+        response.data.map(trip => {
+          trip.key = trip.startTime + trip.route
+        })
+
         this.trips = response.data
       })
       .catch(error => {
@@ -54,6 +59,13 @@ export default {
   methods: {
     toggleSidebar: function () {
       this.showSidebar = !this.showSidebar
+    },
+    showRoute: function (key) {
+      this.trips.map(trip => {
+        if (trip.key === key) {
+          this.selectedRoute = trip
+        }
+      })
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <ul class="l-trips">
-    <li v-for="(trip, index) in trips" :key="index + '-' + trip.route" class="l-trips__trip">
-      <div @click="showRoute($event)" class="c-trip" :class="{'isActive': index == selectedRoutIndex}" :data-index="index">
+    <li v-for="trip in trips" :key="trip.key" class="l-trips__trip">
+      <div @click="showRoute($event)" class="c-trip" :class="{'isActive': trip.key === selectedRoute}" :data-key="trip.key">
         <header class="c-trip__header">
           <h2 class="c-trip__title">
             {{ trip.description }}
@@ -44,7 +44,7 @@ export default {
   },
   data: () => {
     return {
-      selectedRoutIndex: ''
+      selectedRoute: ''
     }
   },
   methods: {
@@ -55,7 +55,8 @@ export default {
       return moment(rawDate).format('hh:mm A')
     },
     showRoute (event) {
-      this.selectedRoutIndex = event.target.closest('.c-trip').dataset.index
+      this.selectedRoute = event.target.closest('.c-trip').dataset.key
+      this.$emit('select-route', this.selectedRoute)
     }
   }
 }
